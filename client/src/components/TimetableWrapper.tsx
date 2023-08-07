@@ -49,14 +49,13 @@ export const TimetableWrapper = () => {
   }
 
   const contextualizedTimetable = activeTimetable.map((dayLessons) => {
-    let prevEnd = undefined;
+    let prevEnd: string | undefined = undefined;
     const contextualizedDayLessons: ContextualizedLesson[] = [...dayLessons];
-    for (const lesson of contextualizedDayLessons) {
+    return contextualizedDayLessons.map(({ ...lesson }) => {
       lesson.prevEndTime = prevEnd;
       prevEnd = lesson.endTime;
-    }
-
-    return contextualizedDayLessons;
+      return lesson;
+    });
   });
 
   return (

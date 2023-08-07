@@ -4,12 +4,12 @@ import { areIntervalsOverlapping, getDay } from 'date-fns';
 import { useMemo } from 'react';
 
 import useVictim from '../hooks/useVictim';
-import { PersonInfo, TimetableRecord } from '../services/DataService';
+import { LessonInfo, PersonInfo } from '../services/DataService';
 import { intervalFromLesson } from '../utils/TimeUtil';
 import { CollisionInfo, Lesson } from './Lesson';
 import { TimeIndicator } from './TimeIndicator';
 
-export type ContextualizedLesson = TimetableRecord & {
+export type ContextualizedLesson = LessonInfo & {
   prevEndTime?: string;
   /** Array of people who share the same lesson */
   intersections?: PersonInfo[];

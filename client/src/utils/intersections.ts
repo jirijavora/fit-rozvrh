@@ -1,8 +1,4 @@
-import {
-  PersonData,
-  PersonInfo,
-  TimetableRecord,
-} from '../services/DataService';
+import { LessonInfo, PersonData, PersonInfo } from '../services/DataService';
 
 const isInvalidNote = (note: string | undefined) => {
   return !note || note === '' || (note !== 'odd' && note !== 'even');
@@ -19,8 +15,8 @@ export type LessonIntersections = {
 /**
  * Get an identification key for a given lesson.
  */
-export const getLessonKey = (lesson: TimetableRecord) => {
-  const key = `${lesson.day}-${lesson.title}-${lesson.type}-${lesson.room}-${lesson.startTime}-${lesson.endTime}`;
+export const getLessonKey = (lesson: LessonInfo, day: number) => {
+  const key = `${day}-${lesson.title}-${lesson.type}-${lesson.room}-${lesson.startTime}-${lesson.endTime}`;
 
   if (isInvalidNote(lesson.note)) {
     return key;
@@ -40,9 +36,9 @@ export const getLessonIntersectionsMap = (
   const intersections: LessonIntersections = {};
 
   for (const person of people) {
-    for (const day of person.timetable) {
+    person.timetable.forEach((day, dayIndex) => {
       for (const lesson of day) {
-        const key = getLessonKey(lesson);
+        const key = getLessonKey(lesson, dayIndex);
         if (!intersections[key]) {
           intersections[key] = [];
         }
@@ -52,7 +48,7 @@ export const getLessonIntersectionsMap = (
           name: person.name,
         });
       }
-    }
+    });
   }
 
   return intersections;
