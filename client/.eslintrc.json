@@ -33,6 +33,6 @@
     "import/no-duplicates": "warn",
     "spaced-comment": ["warn", "always"],
     "no-console": "warn",
-    "indent": 2
+    "indent": ["warn", 2]
   }
 }
