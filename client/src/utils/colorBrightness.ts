@@ -10,10 +10,10 @@ function hexToRgb(hexColor: string) {
 
   return result
     ? {
-      r: parseInt(result[1], 16).toString(),
-      g: parseInt(result[2], 16).toString(),
-      b: parseInt(result[3], 16).toString(),
-    }
+        r: parseInt(result[1], 16).toString(),
+        g: parseInt(result[2], 16).toString(),
+        b: parseInt(result[3], 16).toString(),
+      }
     : null;
 }
 
@@ -31,11 +31,11 @@ export function getHexBrightness(hexColor: string) {
   const rgb = hexToRgb(hexColor);
   return rgb
     ? Math.round(
-      (parseInt(rgb.r) * 299 +
+        (parseInt(rgb.r) * 299 +
           parseInt(rgb.g) * 587 +
           parseInt(rgb.b) * 114) /
           1000,
-    )
+      )
     : 0;
 }
 /**

@@ -64,18 +64,18 @@ export function VictimDropdown() {
             }}
             onKeyDown={(e) => {
               switch (e.key) {
-              case 'ArrowUp':
-                lastVictimRef?.current?.focus();
-                break;
-              case 'ArrowDown':
-                firstVictimRef?.current?.focus();
-                break;
-              case 'Enter':
-                firstVictimRef?.current?.click();
-                break;
-              default:
-                // Do nothing
-                return;
+                case 'ArrowUp':
+                  lastVictimRef?.current?.focus();
+                  break;
+                case 'ArrowDown':
+                  firstVictimRef?.current?.focus();
+                  break;
+                case 'Enter':
+                  firstVictimRef?.current?.click();
+                  break;
+                default:
+                  // Do nothing
+                  return;
               }
 
               e.preventDefault();

@@ -34,16 +34,16 @@ const getContextualizedLessons = (
   intersectionsMap: LessonIntersections,
   activeVictimId?: string,
 ) =>
-  timetable.map((dayLessons) => {
+  timetable.map((dayLessons, dayIndex) => {
     let prevEnd = undefined;
     const contextualizedDayLessons: ContextualizedLesson[] = [...dayLessons];
     for (const lesson of contextualizedDayLessons) {
       lesson.prevEndTime = prevEnd;
       prevEnd = lesson.endTime;
       // filter out the current victim itself
-      lesson.intersections = intersectionsMap[getLessonKey(lesson)].filter(
-        (person) => person.id !== activeVictimId,
-      );
+      lesson.intersections = intersectionsMap[
+        getLessonKey(lesson, dayIndex)
+      ].filter((person) => person.id !== activeVictimId);
     }
 
     return contextualizedDayLessons;
@@ -102,10 +102,10 @@ export const VictimProvider = ({ children }: Props) => {
     setActiveTimetable(
       newVictim
         ? getContextualizedLessons(
-          newVictim.timetable,
-          intersectionsMap,
-          newVictim.id,
-        )
+            newVictim.timetable,
+            intersectionsMap,
+            newVictim.id,
+          )
         : EMPTY_TIMETABLE,
     );
   };
