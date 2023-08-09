@@ -9,15 +9,15 @@ export const DEFAULT_THEME = {
   /**
    * The header component background color
    */
-  header: '#DFB479',
+  header: '#512888',
   /**
    * The header component text color
    */
-  headerText: '#212529',
+  headerText: '#FFFFFF',
   /**
    * The tutorial component background color
    */
-  tut: '#AED581',
+  tut: '#92BF5F',
   /**
    * The tutorial component text color
    */
@@ -25,7 +25,7 @@ export const DEFAULT_THEME = {
   /**
    * The laboratory component background color
    */
-  lab: '#4FC3F7',
+  lab: '#50A9D3',
   /**
    * The laboratory component text color
    */
@@ -33,7 +33,7 @@ export const DEFAULT_THEME = {
   /**
    * The lecture component background color
    */
-  lec: '#FFB74D',
+  lec: '#D9A04A',
   /**
    * The lecture component text color
    */
@@ -41,7 +41,7 @@ export const DEFAULT_THEME = {
   /**
    * The note component background color
    */
-  note: '#FF0000',
+  note: '#AC0C0C',
   /**
    * The note component text color
    */
