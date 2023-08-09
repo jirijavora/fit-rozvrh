@@ -4,13 +4,13 @@ import { utcToZonedTime } from 'date-fns-tz';
 /**
  * The time data CTU provides is generated in the Europe/Prague timezone (GMT +1).
  */
-export const CTU_TIMEZONE = 'Europe/Prague';
+export const KSU_TIMEZONE = 'US/Central';
 
 /**
  * Get "timezone corrected", date object.
  */
 export function getOffsetDate() {
-  return utcToZonedTime(new Date(), CTU_TIMEZONE);
+  return utcToZonedTime(new Date(), KSU_TIMEZONE);
 }
 
 /**
