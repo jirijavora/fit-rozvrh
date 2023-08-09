@@ -12,7 +12,7 @@ export const TIMETABLE_PIN_START_HOUR = 7.1;
 export const TIMETABLE_PIN_END_HOUR = 20.7;
 
 // FIXME: Rework this to not be so fufu...
-export const SEMESTER_START_DATE = Date.parse('2023-02-20');
+export const SEMESTER_START_DATE = Date.parse('2023-08-21');
 
 function App() {
   return (
