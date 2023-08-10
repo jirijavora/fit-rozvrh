@@ -38,7 +38,7 @@ export const TimetableWrapper = () => {
 
   const timetableHoursCount = TIMETABLE_END_HOUR - TIMETABLE_START_HOUR + 1;
   const targetWindowWidth =
-    windowDimensions.width >= 1200 ? windowDimensions.width : 1200;
+    windowDimensions.width >= 1400 ? windowDimensions.width : 1400;
   const timetableWidth = targetWindowWidth - APP_PADDING_X * 2;
 
   const hourWidthPx = timetableWidth / timetableHoursCount;
