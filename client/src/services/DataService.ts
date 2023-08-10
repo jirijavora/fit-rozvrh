@@ -1,13 +1,10 @@
-import {
-  CIS505_tut,
-  CIS525_tut,
-  CIS580_tut,
-  ECE431_lab,
-  ECE431_lec,
-  ECON120_lec,
-  GYM_lec,
-  GYM_optional_lec,
-} from './data/lectureInfo';
+import { createClient } from '@vercel/kv';
+
+const kv = createClient({
+  url: import.meta.env.VITE_KV_REST_API_URL,
+  token: import.meta.env.VITE_KV_REST_READ_ONLY_API_TOKEN,
+  enableTelemetry: false,
+});
 
 export type LessonInfo = {
   title: string;
@@ -36,36 +33,6 @@ export type PersonData = {
 } & PersonInfo;
 
 export const fetchTimetables = async () => {
-  const people: PersonData[] = [
-    {
-      timetable: [
-        [
-          ECE431_lab,
-          GYM_lec('10:00', '11:00'),
-          CIS505_tut,
-          CIS525_tut,
-          CIS580_tut,
-        ],
-        [ECON120_lec],
-        [
-          ECE431_lab,
-          GYM_lec('10:00', '11:00'),
-          CIS505_tut,
-          CIS525_tut,
-          CIS580_tut,
-        ],
-        [ECON120_lec, ECE431_lec],
-        [
-          GYM_optional_lec('10:00', '11:00'),
-          CIS505_tut,
-          CIS525_tut,
-          CIS580_tut,
-        ],
-      ],
-      id: '1',
-      name: 'Jiří Javora',
-    },
-  ];
-
-  return people;
+  const data = await kv.json.get('data');
+  return data as PersonData[];
 };
