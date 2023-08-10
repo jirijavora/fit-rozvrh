@@ -79,7 +79,7 @@ const HeaderColorInput = ({ label, value, setValue }: ColorInputProps) => {
     : `bg-${label.toLowerCase()}`;
   return (
     <div
-      className={`w-80 rounded ${bg}`}
+      className={`w-80 position-relative rounded ${bg}`}
       style={{
         display: 'stretch',
         height: 60,
