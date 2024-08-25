@@ -2,7 +2,7 @@ import { createClient } from '@vercel/kv';
 
 const kv = createClient({
   url: import.meta.env.VITE_KV_REST_API_URL,
-  token: import.meta.env.VITE_KV_REST_READ_ONLY_API_TOKEN,
+  token: import.meta.env.VITE_KV_REST_API_READ_ONLY_TOKEN,
   enableTelemetry: false,
 });
 
