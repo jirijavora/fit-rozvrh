@@ -1,7 +1,7 @@
 {
-  "short_name": "FITZvrh-custom",
-  "name": "FITZvrh-custom",
-  "description": "Kompletni react rozvrh rychlokvaska z leaknutyho rozvrhu na CVUT FIT - custom",
+  "short_name": "FITZvrh-reborn",
+  "name": "FITZvrh-roborn",
+  "description": "Kompletni react rozvrh rychlokvaska z leaknutyho rozvrhu na CVUT FIT - roborn",
   "icons": [
     {
       "src": "/icon/android-chrome-192x192.png",
@@ -14,7 +14,7 @@
       "type": "image/png"
     }
   ],
-  "id": "fitzvrh-custom",
+  "id": "fitzvrh-roborn",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
