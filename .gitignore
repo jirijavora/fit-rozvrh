@@ -1,2 +1,7 @@
 .idea
 certs
+.vercel
+
+node_modules
+
+*.local.*
