@@ -19,7 +19,6 @@ function App() {
   return (
     <div className="App bg-dark mx-3 py-3 text-light text-center">
       <Header />
-
       <TimetableWrapper />
     </div>
   );

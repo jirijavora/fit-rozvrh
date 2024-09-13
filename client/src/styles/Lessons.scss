@@ -57,7 +57,9 @@
     box-shadow: 1px 2px 7px #000;
 
     will-change: transform;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition:
+      transform 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
 
     &:hover {
       cursor: pointer;

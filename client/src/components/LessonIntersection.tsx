@@ -1,4 +1,4 @@
-import { HiOutlineExternalLink } from 'react-icons/all';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 
 import useVictim from '../hooks/useVictim';
 import { PersonInfo } from '../services/DataService';

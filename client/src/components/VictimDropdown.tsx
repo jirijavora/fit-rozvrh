@@ -10,12 +10,12 @@ export function VictimDropdown() {
     useState<boolean>(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const firstVictimRef = useRef<HTMLButtonElement>(
+  const firstVictimRef = useRef<HTMLAnchorElement>(
     null,
-  ) as MutableRefObject<HTMLButtonElement>;
-  const lastVictimRef = useRef<HTMLButtonElement>(
+  ) as MutableRefObject<HTMLAnchorElement>;
+  const lastVictimRef = useRef<HTMLAnchorElement>(
     null,
-  ) as MutableRefObject<HTMLButtonElement>;
+  ) as MutableRefObject<HTMLAnchorElement>;
 
   useEffect(() => {
     if (displayVictimDropdown) {
@@ -43,6 +43,7 @@ export function VictimDropdown() {
         setDisplayVictimDropdown(show);
       }}
       show={displayVictimDropdown}
+      align="end"
     >
       <Dropdown.Toggle
         className="text-bold bg-black"
@@ -93,7 +94,7 @@ export function VictimDropdown() {
               onClick={() => {
                 setVictimId(person.id);
               }}
-              ref={(el: HTMLButtonElement) => {
+              ref={(el: HTMLAnchorElement) => {
                 if (isFirst) firstVictimRef.current = el;
                 if (isLast) lastVictimRef.current = el;
               }}
