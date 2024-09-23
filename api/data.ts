@@ -12,11 +12,24 @@ const fetchTimetables = async () => {
 };
 
 export async function GET(request: Request) {
-  const me = await fetch("https://discord.com/api/users/@me", {
+  const user = await fetch("https://discord.com/api/users/@me", {
     headers: { authorization: request.headers.get("discordToken")! },
   });
 
-  console.log(await me.json());
+  const guildUser = await fetch(
+    `https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${
+      (
+        await user.json()
+      ).id
+    }`,
+    {
+      headers: { authorization: `Bot ${process.env.BOT_TOKEN}` },
+    }
+  );
 
-  return new Response(JSON.stringify(await fetchTimetables()));
+  if (guildUser.status === 200) {
+    return new Response(JSON.stringify(await fetchTimetables()));
+  } else {
+    return new Response("Unauthorized", { status: 401 });
+  }
 }
