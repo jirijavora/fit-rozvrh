@@ -1,7 +1,25 @@
-import { InteractionResponseType, InteractionType } from "discord-interactions";
+import {
+  InteractionResponseType,
+  InteractionType,
+  verifyKey,
+} from "discord-interactions";
 
 export async function POST(request: Request) {
-  const message = (await request.json()).body;
+  const signature = request.headers.get("X-Signature-Ed25519");
+  const timestamp = request.headers.get("X-Signature-Timestamp");
+  const requestBody = await request.text();
+
+  const isValidRequest = await verifyKey(
+    requestBody,
+    signature,
+    timestamp,
+    "d5ad2df6c9aaa0ee82ef1871ed9e1f9ffda11526a0cc9d3faf52d6dde2226c9c"
+  );
+  if (!isValidRequest) {
+    return new Response("Bad request signature", { status: 401 });
+  }
+
+  const message = JSON.parse(requestBody);
 
   if (message?.type === InteractionType.PING) {
     console.log("Handling ping request");
