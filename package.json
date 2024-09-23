@@ -1,6 +1,10 @@
 {
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@vercel/kv": "^2.0.0",
+    "discord-interactions": "^4.1.0"
+  },
   "devDependencies": {
     "@types/node": "^20.16.1",
     "typescript": "^5.5.4"
