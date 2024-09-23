@@ -1,11 +1,3 @@
-import { createClient } from '@vercel/kv';
-
-const kv = createClient({
-  url: import.meta.env.VITE_KV_REST_API_URL,
-  token: import.meta.env.VITE_KV_REST_API_READ_ONLY_TOKEN,
-  enableTelemetry: false,
-});
-
 export type LessonInfo = {
   title: string;
   type: 'tut' | 'lab' | 'lec';
@@ -32,7 +24,9 @@ export type PersonData = {
   timetable: Timetable;
 } & PersonInfo;
 
-export const fetchTimetables = async () => {
-  const data = await kv.json.get('data');
-  return data as PersonData[];
+export const fetchTimetables = async (token: string) => {
+  const data = await fetch('/api/data', {
+    headers: { discordToken: `Bearer ${token}` },
+  });
+  return (await data.json()) as PersonData[];
 };
