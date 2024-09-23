@@ -90,7 +90,7 @@ const getTokenFromStorage = (): TokenResponse | null => {
   const parsedToken = storedToken
     ? (JSON.parse(storedToken) as TokenResponse)
     : null;
-  if (parsedToken && parsedToken?.expires_timestamp < Date.now())
+  if (parsedToken && parsedToken?.expires_timestamp > Date.now())
     return parsedToken;
 
   return null;
