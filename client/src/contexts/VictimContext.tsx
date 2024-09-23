@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { ContextualizedLesson } from '../components/Lessons';
 import {
@@ -11,6 +11,7 @@ import {
   getLessonKey,
   LessonIntersections,
 } from '../utils/intersections';
+import { AuthContext } from './AuthContext';
 
 interface VictimContextType {
   people: PersonData[];
@@ -54,6 +55,8 @@ export const VictimContext = createContext<VictimContextType | undefined>(
 );
 
 export const VictimProvider = ({ children }: Props) => {
+  const authContext = useContext(AuthContext);
+
   const [people, setPeople] = useState<PersonData[]>([]);
   const [activeVictim, setActiveVictim] = useState<PersonData | null>(null);
   const [intersectionsMap, setIntersectionsMap] = useState<LessonIntersections>(
@@ -67,26 +70,28 @@ export const VictimProvider = ({ children }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchTimetables().then((foundPeople) => {
-      const map = getLessonIntersectionsMap(foundPeople);
-      setIntersectionsMap(map);
-      setPeople(foundPeople);
-      setIsLoading(false);
+    if (authContext?.access_token) {
+      fetchTimetables(authContext.access_token).then((foundPeople) => {
+        const map = getLessonIntersectionsMap(foundPeople);
+        setIntersectionsMap(map);
+        setPeople(foundPeople);
+        setIsLoading(false);
 
-      const favoriteVictim =
-        foundPeople.find((person) => person.id === favoriteId) ?? null;
-      if (favoriteVictim) {
-        setActiveVictim(favoriteVictim);
-        setActiveTimetable(
-          getContextualizedLessons(
-            favoriteVictim.timetable,
-            map,
-            favoriteVictim.id,
-          ),
-        );
-      }
-    });
-  }, []);
+        const favoriteVictim =
+          foundPeople.find((person) => person.id === favoriteId) ?? null;
+        if (favoriteVictim) {
+          setActiveVictim(favoriteVictim);
+          setActiveTimetable(
+            getContextualizedLessons(
+              favoriteVictim.timetable,
+              map,
+              favoriteVictim.id,
+            ),
+          );
+        }
+      });
+    }
+  }, [authContext]);
 
   /**
    * Sets the active victim and updates the active timetable.
