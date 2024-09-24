@@ -18,10 +18,12 @@ export function getOffsetDate() {
  * @param semesterStartTimestamp unix timestamp of the semester start (in milliseconds).
  */
 export function getSemesterWeekNo(semesterStartTimestamp: number) {
-  return differenceInCalendarWeeks(
-    getOffsetDate(),
-    new Date(semesterStartTimestamp),
-    { weekStartsOn: 1 },
+  return (
+    differenceInCalendarWeeks(
+      getOffsetDate(),
+      new Date(semesterStartTimestamp),
+      { weekStartsOn: 1 },
+    ) + 1
   );
 }
 
