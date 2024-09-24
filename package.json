@@ -3,7 +3,8 @@
   "type": "module",
   "dependencies": {
     "@vercel/kv": "^2.0.0",
-    "discord-interactions": "^4.1.0"
+    "discord-interactions": "^4.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.16.1",
