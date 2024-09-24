@@ -28,5 +28,5 @@ export function getSemesterWeekNo(semesterStartTimestamp: number) {
 }
 
 export function getEvenOddWeek() {
-  return getWeek(getOffsetDate(), { weekStartsOn: 1 }) % 2 ? 'even' : 'odd';
+  return getWeek(getOffsetDate(), { weekStartsOn: 1 }) % 2 ? 'odd' : 'even';
 }
