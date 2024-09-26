@@ -16,7 +16,7 @@ export type LessonIntersections = {
  * Get an identification key for a given lesson.
  */
 export const getLessonKey = (lesson: LessonInfo, day: number) => {
-  const key = `${day}-${lesson.title}-${lesson.type}-${lesson.room}-${lesson.startTime}-${lesson.endTime}`;
+  const key = `${day}-${lesson.title}-${lesson.type}-${lesson.startTime}-${lesson.endTime}`;
 
   if (isInvalidNote(lesson.note)) {
     return key;
