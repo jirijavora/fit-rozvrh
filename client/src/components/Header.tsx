@@ -41,7 +41,7 @@ export const Header = () => {
           {currentWeekEvenOrOdd} week (no. {currentWeekSemesterNo})
         </Badge>
       </section>
-      <section className="d-flex flex-row align-items-center gap-2">
+      <section className="d-flex flex-row flex-wrap align-items-center gap-2">
         <VictimBadge />
         <VictimDropdown />
         <ThemeDropdown />
