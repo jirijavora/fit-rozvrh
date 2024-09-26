@@ -23,7 +23,7 @@ export const LessonIntersection = ({ index, intersection }: Props) => {
       onClick={() => setVictimId(intersection.id)}
       title={`Show ${intersection.name}'s timetable.`}
     >
-      <h6 className="m-0">
+      <h6 className="m-0 text-truncate">
         {intersection.name} <HiOutlineExternalLink />
       </h6>
     </div>
