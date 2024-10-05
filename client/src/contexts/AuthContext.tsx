@@ -117,6 +117,7 @@ const authRedirect = async () => {
   authorizationUrl.searchParams.set('response_type', 'code');
   authorizationUrl.searchParams.set('redirect_uri', window.location.origin);
   authorizationUrl.searchParams.set('scope', scopes);
+  authorizationUrl.searchParams.set('prompt', 'none');
   authorizationUrl.searchParams.set('code_challenge', code_challenge);
   authorizationUrl.searchParams.set(
     'code_challenge_method',
