@@ -1,12 +1,12 @@
 import '../styles/Lessons.scss';
 
-import { areIntervalsOverlapping, getDay } from 'date-fns';
+import { getDay } from 'date-fns';
 import { useMemo } from 'react';
 
 import useVictim from '../hooks/useVictim';
 import { LessonInfo, PersonInfo } from '../services/DataService';
-import { intervalFromLesson } from '../utils/TimeUtil';
-import { CollisionInfo, Lesson } from './Lesson';
+import { calculateLessonCollisions } from '../utils/collisions';
+import { Lesson } from './Lesson';
 import { TimeIndicator } from './TimeIndicator';
 
 export type ContextualizedLesson = LessonInfo & {
@@ -28,32 +28,10 @@ const getDayName = (index: number) => {
 export const Lessons = ({ lessons, dayIndex }: Props) => {
   const { activeVictim } = useVictim();
 
-  const lessonsWithCollisions = useMemo(() => {
-    const returnArr: (ContextualizedLesson & CollisionInfo)[] = [];
-
-    lessons.forEach((lesson) => {
-      let currentLevel = 1;
-
-      returnArr.forEach((sortedLesson) => {
-        if (
-          areIntervalsOverlapping(
-            intervalFromLesson(lesson),
-            intervalFromLesson(sortedLesson),
-          )
-        ) {
-          currentLevel = sortedLesson.levelCount += 1;
-        }
-      });
-
-      returnArr.push({
-        ...lesson,
-        level: currentLevel,
-        levelCount: currentLevel,
-      });
-    });
-
-    return returnArr;
-  }, [lessons, activeVictim]);
+  const lessonsWithCollisions = useMemo(
+    () => calculateLessonCollisions(lessons),
+    [lessons, activeVictim],
+  );
 
   return (
     <>
