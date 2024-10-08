@@ -4,7 +4,7 @@ import { intervalFromLesson } from './TimeUtil';
 type CompareKeyFunction<T> = (x: T) => number;
 type CompareFunction<T> = (a: T, b: T) => number;
 const chainComparisons =
-  <T>(funcs: CompareFunction<T>[]): CompareFunction<T> =>
+  <T>(...funcs: CompareFunction<T>[]): CompareFunction<T> =>
   (a, b) => {
     for (const f of funcs) {
       const res = f(a, b);
@@ -45,7 +45,7 @@ const toSortedTimes = (
       { time: interval.end, lessonIdx, type: LessonCollisionTimeType.END },
     ])
     .toSorted(
-      chainComparisons([
+      chainComparisons(
         keyCompare(({ time }) => time.getTime()),
         keyCompare(({ type }) =>
           // Order start times after end times. This makes lessons which just meet at their end
@@ -56,7 +56,7 @@ const toSortedTimes = (
         ),
         (a, b) =>
           compareLessonNames(lessons[a.lessonIdx], lessons[b.lessonIdx]),
-      ]),
+      ),
     );
 
 export type ContextualizedCollidedLesson = ContextualizedLesson & {
@@ -93,9 +93,7 @@ export const calculateLessonCollisions = (
   const times = toSortedTimes(lessons);
   for (const time of times) {
     if (time.type === LessonCollisionTimeType.START) {
-      const level = availableLevels.length
-        ? availableLevels.splice(0, 1)[0]
-        : nextLevel++;
+      const level = availableLevels.shift() ?? nextLevel++;
 
       levels[time.lessonIdx] = level;
       currBlock.push(time.lessonIdx);
