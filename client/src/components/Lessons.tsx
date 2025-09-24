@@ -1,7 +1,7 @@
 import '../styles/Lessons.scss';
 
 import { getDay } from 'date-fns';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import useVictim from '../hooks/useVictim';
 import { LessonInfo, PersonInfo } from '../services/DataService';
@@ -26,12 +26,24 @@ const getDayName = (index: number) => {
 };
 
 export const Lessons = ({ lessons, dayIndex }: Props) => {
+  const [currentDate, setCurrentDate] = useState(new Date());
   const { activeVictim } = useVictim();
 
   const lessonsWithCollisions = useMemo(
     () => calculateLessonCollisions(lessons),
     [lessons, activeVictim],
   );
+
+  useEffect(() => {
+    const dateRefreshInterval = setInterval(
+      () => {
+        setCurrentDate(new Date());
+      },
+      1000 * 60 * 60, // 1000ms * 60 (for seconds) * 60 (for minutes) = 1 hour
+    );
+
+    return () => clearInterval(dateRefreshInterval);
+  }, []);
 
   return (
     <>
@@ -42,7 +54,7 @@ export const Lessons = ({ lessons, dayIndex }: Props) => {
         <h5 className="day-text text-light h-index my-auto">
           {getDayName(dayIndex)}
         </h5>
-        {dayIndex + 1 === getDay(new Date()) && <TimeIndicator />}
+        {dayIndex + 1 === getDay(currentDate) && <TimeIndicator />}
         {lessonsWithCollisions.map((lessonWithCollisions, i) => {
           return <Lesson key={i} dataWithCollisions={lessonWithCollisions} />;
         })}
