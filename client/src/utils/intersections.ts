@@ -1,7 +1,7 @@
 import { LessonInfo, PersonData, PersonInfo } from '../services/DataService';
 
 const isInvalidNote = (note: string | undefined) => {
-  return !note || note === '' || (note !== 'odd' && note !== 'even');
+  return note !== 'odd' && note !== 'even';
 };
 
 /**
@@ -13,10 +13,23 @@ export type LessonIntersections = {
 };
 
 /**
+ * Normalize time strings to make leading zeros irrelevant,
+ * i.e. treat for example 9:5 and 09:05 as the same time.
+ */
+const normalizeTime = (time: string): string =>
+  time
+    .split(':')
+    .map((x) => x.trim().padStart(2, '0'))
+    .join(':');
+
+/**
  * Get an identification key for a given lesson.
  */
 export const getLessonKey = (lesson: LessonInfo, day: number) => {
-  const key = `${day}-${lesson.title}-${lesson.type}-${lesson.startTime}-${lesson.endTime}`;
+  const start = normalizeTime(lesson.startTime);
+  const end = normalizeTime(lesson.endTime);
+
+  const key = `${day}-${lesson.title}-${lesson.type}-${start}-${end}`;
 
   if (isInvalidNote(lesson.note)) {
     return key;
