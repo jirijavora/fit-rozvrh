@@ -1,7 +1,7 @@
 import { LessonInfo, PersonData, PersonInfo } from '../services/DataService';
 
 const isInvalidNote = (note: string | undefined) => {
-  return !note || note === '' || (note !== 'odd' && note !== 'even');
+  return note !== 'odd' && note !== 'even';
 };
 
 /**
