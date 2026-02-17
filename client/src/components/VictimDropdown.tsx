@@ -60,7 +60,7 @@ export function VictimDropdown() {
   const filteredVictims = useMemo(
     () =>
       searchableVictims.filter((victim) =>
-        victim.normalizedName.startsWith(victimSearchLowerCase),
+        victim.normalizedName.includes(victimSearchLowerCase),
       ),
     [victimSearch, searchableVictims],
   );
