@@ -2,6 +2,25 @@ import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import useVictim from '../hooks/useVictim';
+import { PersonData } from '../services/DataService';
+
+/**
+ * Normalize a string for search.
+ * The main goal of this was to make diacritics irrelevant to search. The function also lowercases
+ * the string, removes all non-alphanumeric characters and collapses whitespace into single spaces.
+ * All of this should hopefully make search natural without doing any fancy fuzzy search.
+ */
+const normalizeForSearch = (name: String): string =>
+  name
+    .normalize('NFKD')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, ' ');
+
+type SearchableVictim = PersonData & {
+  normalizedName: string;
+};
 
 export function VictimDropdown() {
   const { setVictimId, people } = useVictim();
@@ -25,14 +44,25 @@ export function VictimDropdown() {
     }
   }, [displayVictimDropdown]);
 
-  const victimSearchLowerCase = victimSearch.toLowerCase();
+  const victimSearchLowerCase = normalizeForSearch(victimSearch);
+
+  const searchableVictims = useMemo(
+    () =>
+      people.map(
+        (victim): SearchableVictim => ({
+          ...victim,
+          normalizedName: normalizeForSearch(victim.name),
+        }),
+      ),
+    [people],
+  );
 
   const filteredVictims = useMemo(
     () =>
-      people.filter((victim) =>
-        victim.name.toLowerCase().startsWith(victimSearchLowerCase),
+      searchableVictims.filter((victim) =>
+        victim.normalizedName.startsWith(victimSearchLowerCase),
       ),
-    [victimSearch, people],
+    [victimSearch, searchableVictims],
   );
 
   // TODO: refactor
