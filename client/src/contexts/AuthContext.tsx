@@ -10,7 +10,7 @@ type TokenResponse = {
 };
 
 // TODO: Convert this into env variables
-const issuer = 'https://discord.com/';
+const issuer = 'https://discord.com';
 const authorization_endpoint = 'https://discord.com/oauth2/authorize';
 const token_endpoint = 'https://discord.com/api/oauth2/token';
 const revocation_endpoint = 'https://discord.com/api/oauth2/token/revoke';
